@@ -23,6 +23,8 @@ const Todo = () => {
           renderItem={({ item }) => (
             <TodoItem data={item} deleteTodo={deleteTodo} />
           )}
+          horizontal={false}
+          numColumns={2}
         />
       </View>
     </View>
