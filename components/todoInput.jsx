@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import { StyleSheet, TextInput, View, Button, Text } from "react-native";
+import {
+  StyleSheet,
+  TextInput,
+  View,
+  Text,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+} from "react-native";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
-import { Snackbar } from "react-native-paper";
 
-const TodoInput = ({ addTodo }) => {
+const TodoInput = ({ addTodo, toggleShowTodoInput }) => {
   const [todo, setTodo] = useState("");
-  const [visible, setVisible] = useState(false);
   const handleButtonPress = () => {
     if (todo.length > 3) {
       addTodo({
@@ -14,50 +19,58 @@ const TodoInput = ({ addTodo }) => {
         done: false,
         id: uuidv4(),
       });
+      toggleShowTodoInput(false);
       setTodo("");
     } else {
       // setVisible(true);
     }
   };
   return (
-    <View style={styles.inputContainer}>
+    <KeyboardAvoidingView style={styles.inputContainer}>
+      <Text style={styles.heading}>ADD A TODO</Text>
       <TextInput
         placeholder="Todo"
         style={styles.input}
         value={todo}
         onChangeText={(text) => setTodo(text)}
       />
-      <Button title="Add Todo" onPress={handleButtonPress} />
-      <Snackbar
-        // visible={todo.length > 0 && todo.length < 4}
-        onDismiss={() => setVisible(false)}
-        action={{
-          label: "Undo",
-          onPress: () => {
-            // Do something
-          },
-        }}
-        style={{ backgroundColor: "blue" }}
-      >
-        <View>
-          <Text>Todo must contain atleast 4 Character.</Text>
-        </View>
-      </Snackbar>
-    </View>
+      <TouchableOpacity onPress={handleButtonPress} style={styles.button}>
+        <Text>Add Todo</Text>
+      </TouchableOpacity>
+    </KeyboardAvoidingView>
   );
 };
 
 export default TodoInput;
 
 const styles = StyleSheet.create({
+  heading: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 30,
+  },
   input: {
     borderColor: "#ccc",
     borderWidth: 1,
+    borderRadius: 8,
     padding: 10,
     marginVertical: 10,
+    width: "80%",
+    alignItems: "center",
   },
   inputContainer: {
-    margin: 30,
-    // flex: 1,
+    // margin: 30,
+    width: "100%",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  button: {
+    width: "80%",
+    backgroundColor: "yellowgreen",
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 14,
+    alignItems: "center",
   },
 });
