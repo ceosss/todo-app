@@ -7,48 +7,26 @@ import {
   Modal,
   TouchableOpacity,
 } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
-import TodoInput from "./todoInput";
-import TodoItem from "./todoItem";
+import CategoryItem from "./CategoryItem";
+import data from "../data";
 
 const Todo = () => {
-  const [todos, setTodos] = useState([
-    { name: "Eat", done: false, id: "1" },
-    { name: "Code", done: false, id: "2" },
-    { name: "Sleep", done: false, id: "3" },
-  ]);
-  const [showTodoInput, toggleShowTodoInput] = useState(false);
-  const deleteTodo = (id) => setTodos(todos.filter((todo) => todo.id !== id));
-  const addTodo = (data) => setTodos([data, ...todos]);
+  const [todos, setTodos] = useState(data);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>TODO HANDLER</Text>
       </View>
-      <TouchableOpacity
-        style={styles.iconHolder}
-        onPress={() => toggleShowTodoInput(true)}
-      >
-        <AntDesign name="plus" size={24} color="black" style={styles.icon} />
-      </TouchableOpacity>
-      <Modal
-        visible={showTodoInput}
-        animationType="slide"
-        onRequestClose={() => toggleShowTodoInput(false)}
-      >
-        <TodoInput
-          addTodo={addTodo}
-          toggleShowTodoInput={toggleShowTodoInput}
-        />
-      </Modal>
-      <View style={styles.content}>
+      <View style={styles.categoryContainer}>
+        <Text style={styles.categoryText}>CATEGORIES</Text>
+      </View>
+      <View style={styles.category}>
         <FlatList
-          data={todos}
-          renderItem={({ item }) => (
-            <TodoItem data={item} deleteTodo={deleteTodo} />
-          )}
-          horizontal={false}
-          numColumns={2}
+          data={data}
+          renderItem={({ item }) => <CategoryItem data={item} />}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item, index) => "key" + index}
         />
       </View>
     </View>
@@ -80,21 +58,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
     letterSpacing: 2,
   },
-  iconHolder: {
-    width: "100%",
+  categoryContainer: {
     justifyContent: "center",
     alignItems: "center",
     marginVertical: 20,
   },
-  icon: {
-    paddingVertical: 5,
-    paddingHorizontal: 7,
-    borderColor: "#333",
-    borderWidth: 1,
-    borderRadius: 5,
+  categoryText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#6800fa",
   },
-  content: {
-    flex: 1,
-    padding: 10,
-  },
+  category: {},
 });
