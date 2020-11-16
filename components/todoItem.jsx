@@ -4,16 +4,22 @@ import { getColor } from "../data";
 import { AntDesign } from "@expo/vector-icons";
 
 const TodoItem = ({ data }) => {
-  const backColor = {
-    backgroundColor: getColor(),
+  const handlePress = () => {
+    console.log(data);
+  };
+  const handleDelete = () => {
+    console.log(data);
   };
   return (
-    <View style={[styles.todoItem, backColor]}>
-      <Text>{data.name}</Text>
-      <TouchableOpacity style={styles.opacity}>
+    <TouchableOpacity
+      style={[styles.todoItem, { backgroundColor: getColor() }]}
+      onPress={handlePress}
+    >
+      <Text style={styles.todoItemName}>{data.name}</Text>
+      <TouchableOpacity style={styles.opacity} onPress={handleDelete}>
         <AntDesign name="delete" size={18} color="black" />
       </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -32,6 +38,10 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 3, height: 5 },
     shadowOpacity: 0.5,
     elevation: 1,
+  },
+  todoItemName: {
+    fontFamily: "Montserrat_300Light",
+    fontWeight: "300",
   },
   opacity: {
     height: 20,

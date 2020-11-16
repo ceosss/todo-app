@@ -13,10 +13,10 @@ const CategoryItem = ({ data }) => {
     >
       <Text style={styles.categoryName}>{data.category.toUpperCase()}</Text>
       <View style={styles.stats}>
-        <Text>
+        <Text style={styles.statsText}>
           {completed} of {data.todo.length}
         </Text>
-        <Text>Completed</Text>
+        <Text style={styles.statsHeader}>Completed</Text>
       </View>
       <CategoryModal
         data={data}
@@ -47,6 +47,8 @@ const styles = StyleSheet.create({
   categoryName: {
     fontSize: 18,
     fontWeight: "bold",
+    fontFamily: "Montserrat_600SemiBold",
+    fontWeight: "600",
   },
   stats: {
     position: "absolute",
@@ -54,5 +56,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
+  },
+  statsText: {
+    fontFamily: "Montserrat_300Light",
+    fontWeight: "300",
+  },
+  statsHeader: {
+    fontFamily: "Montserrat_600SemiBold",
+    fontWeight: "600",
   },
 });

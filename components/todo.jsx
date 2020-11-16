@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  Modal,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, FlatList } from "react-native";
 import CategoryItem from "./CategoryItem";
 import data from "../data";
 
@@ -17,17 +10,19 @@ const Todo = () => {
       <View style={styles.header}>
         <Text style={styles.headerText}>TODO HANDLER</Text>
       </View>
-      <View style={styles.categoryContainer}>
-        <Text style={styles.categoryText}>CATEGORIES</Text>
-      </View>
-      <View style={styles.category}>
-        <FlatList
-          data={data}
-          renderItem={({ item }) => <CategoryItem data={item} />}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={(item, index) => "key" + index}
-        />
+      <View style={styles.midContainer}>
+        <View style={styles.categoryContainer}>
+          <Text style={styles.categoryText}>CATEGORIES</Text>
+        </View>
+        <View style={styles.category}>
+          <FlatList
+            data={todos}
+            renderItem={({ item }) => <CategoryItem data={item} />}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(item, index) => "key" + index}
+          />
+        </View>
       </View>
     </View>
   );
@@ -52,12 +47,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
   },
   headerText: {
-    fontWeight: "bold",
-    fontSize: 18,
+    fontSize: 32,
     width: "100%",
     textAlign: "center",
-    letterSpacing: 2,
+    // letterSpacing: 2,
+    fontFamily: "Montserrat_800ExtraBold",
+    fontWeight: "800",
   },
+  midContainer: {},
   categoryContainer: {
     justifyContent: "center",
     alignItems: "center",
@@ -65,8 +62,9 @@ const styles = StyleSheet.create({
   },
   categoryText: {
     fontSize: 20,
-    fontWeight: "bold",
     color: "#6800fa",
+    fontFamily: "Montserrat_600SemiBold",
+    fontWeight: "600",
   },
   category: {},
 });

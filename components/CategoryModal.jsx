@@ -42,6 +42,9 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
     color: "white",
+    letterSpacing: 2,
+    fontFamily: "Montserrat_800ExtraBold",
+    fontWeight: "800",
   },
   cross: {
     position: "absolute",
