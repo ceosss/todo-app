@@ -8,7 +8,7 @@ const CategoryItem = ({ data }) => {
   const completed = data.todo.filter((todo) => todo.done).length;
   return (
     <TouchableOpacity
-      style={[styles.categoryItem, { backgroundColor: getColor() }]}
+      style={[styles.categoryItem, { backgroundColor: data.color }]}
       onPress={() => toggleModalVisible(true)}
     >
       <Text style={styles.categoryName}>{data.category.toUpperCase()}</Text>

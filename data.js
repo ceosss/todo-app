@@ -1,6 +1,7 @@
 export default [
   {
     category: "Tech",
+    color: "#FEBCC8",
     todo: [
       { name: "Eat", done: true, id: "1" },
       { name: "Code", done: false, id: "2" },
@@ -9,6 +10,7 @@ export default [
   },
   {
     category: "Lifestyle",
+    color: "#EFB0C9",
     todo: [
       { name: "Eat", done: false, id: "1" },
       { name: "Code", done: true, id: "2" },
@@ -17,6 +19,7 @@ export default [
   },
   {
     category: "Tech",
+    color: "#F1E8D9",
     todo: [
       { name: "Eat", done: true, id: "1" },
       { name: "Code", done: false, id: "2" },
@@ -25,6 +28,7 @@ export default [
   },
   {
     category: "Lifestyle",
+    color: "#E0FEFE",
     todo: [
       { name: "Eat", done: false, id: "1" },
       { name: "Code", done: true, id: "2" },
