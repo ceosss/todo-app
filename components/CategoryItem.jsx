@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { getColor } from "../data";
+import ProgressCircle from "react-native-progress-circle";
 import CategoryModal from "./CategoryModal";
 
 const CategoryItem = ({ data }) => {
@@ -13,6 +13,14 @@ const CategoryItem = ({ data }) => {
     >
       <Text style={styles.categoryName}>{data.category.toUpperCase()}</Text>
       <View style={styles.stats}>
+        <ProgressCircle
+          percent={(completed / data.todo.length) * 100}
+          radius={20}
+          borderWidth={5}
+          color="lightgreen"
+          shadowColor="white"
+          bgColor={data.color}
+        ></ProgressCircle>
         <Text style={styles.statsText}>
           {completed} of {data.todo.length}
         </Text>
@@ -60,6 +68,7 @@ const styles = StyleSheet.create({
   statsText: {
     fontFamily: "Montserrat_300Light",
     fontWeight: "300",
+    marginTop: 20,
   },
   statsHeader: {
     fontFamily: "Montserrat_600SemiBold",

@@ -9,6 +9,7 @@ const Todo = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>TODO HANDLER</Text>
+        <View style={styles.line}></View>
       </View>
       <View style={styles.midContainer}>
         <View style={styles.categoryContainer}>
@@ -38,13 +39,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: "5%",
     paddingTop: "12%",
     paddingBottom: "8%",
-    borderBottomLeftRadius: 50,
-    borderBottomRightRadius: 50,
-    backgroundColor: "lightblue",
-    shadowColor: "#333",
-    elevation: 5,
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.5,
   },
   headerText: {
     fontSize: 32,
@@ -53,6 +47,12 @@ const styles = StyleSheet.create({
     // letterSpacing: 2,
     fontFamily: "Montserrat_800ExtraBold",
     fontWeight: "800",
+  },
+  line: {
+    // position: "absolute",
+    marginTop: 20,
+    height: 1,
+    backgroundColor: "#333",
   },
   midContainer: {},
   categoryContainer: {
