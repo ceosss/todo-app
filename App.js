@@ -5,6 +5,7 @@ import { AppLoading } from "expo";
 import Todo from "./components/todo";
 import SignInOptions from "./components/SignInOptions";
 import Login from "./components/Login";
+import SignUp from "./components/SignUp";
 
 import {
   useFonts,
@@ -26,7 +27,8 @@ export default function App() {
     <View style={styles.container}>
       {/* <Todo /> */}
       {/* <SignInOptions /> */}
-      <Login />
+      {/* <Login /> */}
+      <SignUp />
       <StatusBar style="auto" />
     </View>
   );

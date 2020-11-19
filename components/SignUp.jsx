@@ -7,14 +7,17 @@ import {
   TextInput,
   KeyboardAvoidingView,
 } from "react-native";
-import { validateEmail, validatePassword } from "../helper";
+import { validateName, validateEmail, validatePassword } from "../helper";
 import Toast from "react-native-simple-toast";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 
-const Login = () => {
+const SignUp = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleLogin = () => {
+  const handleSignUp = () => {
+    if (!validateName(name))
+      return Toast.show("Name must contain atleast 4 characters");
     if (!validateEmail(email)) return Toast.show("Invalid Email");
 
     if (!validatePassword(password))
@@ -30,7 +33,16 @@ const Login = () => {
       </View>
       <View style={styles.body}>
         <View style={styles.form}>
-          <Text style={styles.headerText}>LOGIN</Text>
+          <Text style={styles.headerText}>SIGN-UP</Text>
+          <View style={styles.inputHolder}>
+            <AntDesign name="user" size={24} color="black" />
+            <TextInput
+              placeholder="John Doe"
+              style={styles.input}
+              value={name}
+              onChangeText={(text) => setName(text)}
+            />
+          </View>
           <View style={styles.inputHolder}>
             <MaterialCommunityIcons name="email" size={24} color="black" />
             <TextInput
@@ -55,15 +67,15 @@ const Login = () => {
             />
           </View>
         </View>
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>LOGIN</Text>
+        <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+          <Text style={styles.buttonText}>REGISTER</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
 };
 
-export default Login;
+export default SignUp;
 
 const styles = StyleSheet.create({
   container: { backgroundColor: "orange", height: "100%" },
