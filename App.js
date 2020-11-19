@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { AppLoading } from "expo";
 import Todo from "./components/todo";
 import SignInOptions from "./components/SignInOptions";
+import Login from "./components/Login";
 
 import {
   useFonts,
@@ -24,7 +25,8 @@ export default function App() {
   return (
     <View style={styles.container}>
       {/* <Todo /> */}
-      <SignInOptions />
+      {/* <SignInOptions /> */}
+      <Login />
       <StatusBar style="auto" />
     </View>
   );
