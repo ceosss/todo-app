@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { AppLoading } from "expo";
 import Todo from "./components/todo";
@@ -15,6 +15,7 @@ import {
 } from "@expo-google-fonts/montserrat";
 
 export default function App() {
+  const [user, setUser] = useState(null);
   let [fontsLoaded] = useFonts({
     Montserrat_300Light,
     Montserrat_600SemiBold,
@@ -25,10 +26,7 @@ export default function App() {
   }
   return (
     <View style={styles.container}>
-      {/* <Todo /> */}
-      {/* <SignInOptions /> */}
-      {/* <Login /> */}
-      <SignUp />
+      {user ? <Todo /> : <SignInOptions />}
       <StatusBar style="auto" />
     </View>
   );
