@@ -3,9 +3,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { AppLoading } from "expo";
 import Todo from "./components/todo";
-import SignInOptions from "./components/SignInOptions";
-import Login from "./components/Login";
-import SignUp from "./components/SignUp";
+import AuthStack from "./routes/AuthStack";
 
 import {
   useFonts,
@@ -26,7 +24,7 @@ export default function App() {
   }
   return (
     <View style={styles.container}>
-      {user ? <Todo /> : <SignInOptions />}
+      {user ? <Todo /> : <AuthStack />}
       <StatusBar style="auto" />
     </View>
   );

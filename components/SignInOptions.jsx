@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Logo from "../assets/Logo";
 
-const SignInOptions = () => {
+const SignInOptions = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.head}>
@@ -12,10 +12,16 @@ const SignInOptions = () => {
         <View style={styles.logo}>
           <Logo />
         </View>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("Login")}
+        >
           <Text style={styles.buttonText}>LOGIN</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("SignUp")}
+        >
           <Text style={styles.buttonText}>CREATE AN ACCOUNT</Text>
         </TouchableOpacity>
       </View>
