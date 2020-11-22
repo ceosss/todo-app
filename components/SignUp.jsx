@@ -6,25 +6,43 @@ import {
   TouchableOpacity,
   TextInput,
   KeyboardAvoidingView,
+  ActivityIndicator,
 } from "react-native";
 import { validateName, validateEmail, validatePassword } from "../helper";
 import Toast from "react-native-simple-toast";
 import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
+import { auth } from "../firebase";
+import { useDispatch } from "react-redux";
+import { login } from "../Redux/Auth/auth.actions";
 
 const SignUp = () => {
-  const [name, setName] = useState("");
+  // const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   const handleSignUp = () => {
-    if (!validateName(name))
-      return Toast.show("Name must contain atleast 4 characters");
+    // if (!validateName(name))
+    //   return Toast.show("Name must contain atleast 4 characters");
     if (!validateEmail(email)) return Toast.show("Invalid Email");
 
     if (!validatePassword(password))
       return Toast.show(
         "Password must contain min 8 letters, with at least a symbol, upper and lower case letters and a number"
       );
-    Toast.show("Ready to Login");
+    setLoading(true);
+
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((user) => {
+        dispatch(login(user));
+        Toast.show("Successfull");
+        setLoading(false);
+      })
+      .catch((error) => {
+        Toast.show(error.message);
+        setLoading(false);
+      });
   };
   return (
     <KeyboardAvoidingView style={styles.container}>
@@ -34,7 +52,7 @@ const SignUp = () => {
       <View style={styles.body}>
         <View style={styles.form}>
           <Text style={styles.headerText}>SIGN-UP</Text>
-          <View style={styles.inputHolder}>
+          {/* <View style={styles.inputHolder}>
             <AntDesign name="user" size={24} color="black" />
             <TextInput
               placeholder="John Doe"
@@ -42,7 +60,7 @@ const SignUp = () => {
               value={name}
               onChangeText={(text) => setName(text)}
             />
-          </View>
+          </View> */}
           <View style={styles.inputHolder}>
             <MaterialCommunityIcons name="email" size={24} color="black" />
             <TextInput
@@ -50,6 +68,7 @@ const SignUp = () => {
               style={styles.input}
               value={email}
               onChangeText={(text) => setEmail(text)}
+              autoCompleteType="off"
             />
           </View>
           <View style={styles.inputHolder}>
@@ -64,12 +83,21 @@ const SignUp = () => {
               secureTextEntry={true}
               value={password}
               onChangeText={(text) => setPassword(text)}
+              autoCompleteType="off"
             />
           </View>
         </View>
-        <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-          <Text style={styles.buttonText}>REGISTER</Text>
-        </TouchableOpacity>
+        {loading ? (
+          <ActivityIndicator
+            size="small"
+            color="white"
+            style={{ padding: 24 }}
+          />
+        ) : (
+          <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+            <Text style={styles.buttonText}>REGISTER</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </KeyboardAvoidingView>
   );

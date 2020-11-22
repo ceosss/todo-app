@@ -6,7 +6,11 @@ import {
   TouchableOpacity,
   TextInput,
   KeyboardAvoidingView,
+  ActivityIndicator,
 } from "react-native";
+import { useDispatch } from "react-redux";
+import { login } from "../Redux/Auth/auth.actions";
+import { auth } from "../firebase";
 import { validateEmail, validatePassword } from "../helper";
 import Toast from "react-native-simple-toast";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -14,6 +18,8 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   const handleLogin = () => {
     if (!validateEmail(email)) return Toast.show("Invalid Email");
 
@@ -21,7 +27,18 @@ const Login = () => {
       return Toast.show(
         "Password must contain min 8 letters, with at least a symbol, upper and lower case letters and a number"
       );
-    Toast.show("Ready to Login");
+    setLoading(true);
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((user) => {
+        dispatch(login(user));
+        Toast.show("Login Successful");
+        setLoading(false);
+      })
+      .catch((error) => {
+        Toast.show(error.message);
+        setLoading(false);
+      });
   };
   return (
     <KeyboardAvoidingView style={styles.container}>
@@ -38,6 +55,7 @@ const Login = () => {
               style={styles.input}
               value={email}
               onChangeText={(text) => setEmail(text)}
+              autoCompleteType="off"
             />
           </View>
           <View style={styles.inputHolder}>
@@ -52,12 +70,21 @@ const Login = () => {
               secureTextEntry={true}
               value={password}
               onChangeText={(text) => setPassword(text)}
+              autoCompleteType="off"
             />
           </View>
         </View>
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>LOGIN</Text>
-        </TouchableOpacity>
+        {loading ? (
+          <ActivityIndicator
+            size="small"
+            color="white"
+            style={{ padding: 24 }}
+          />
+        ) : (
+          <TouchableOpacity style={styles.button} onPress={handleLogin}>
+            <Text style={styles.buttonText}>LOGIN</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </KeyboardAvoidingView>
   );

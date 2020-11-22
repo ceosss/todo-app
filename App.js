@@ -1,9 +1,10 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useState, useEffect } from "react";
+import Main from "./Main";
 import { AppLoading } from "expo";
-import Todo from "./components/todo";
-import AuthStack from "./routes/AuthStack";
+import rootReducer from "./Redux/root-reducer";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+const store = createStore(rootReducer);
 
 import {
   useFonts,
@@ -13,28 +14,21 @@ import {
 } from "@expo-google-fonts/montserrat";
 
 export default function App() {
-  const [user, setUser] = useState(null);
   let [fontsLoaded] = useFonts({
     Montserrat_300Light,
     Montserrat_600SemiBold,
     Montserrat_800ExtraBold,
   });
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return (
+      // <Provider store={store}>
+      <AppLoading />
+      // </Provider>
+    );
   }
   return (
-    <View style={styles.container}>
-      {user ? <Todo /> : <AuthStack />}
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <Main />
+    </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    // alignItems: "center",
-    // justifyContent: "center",
-  },
-});
