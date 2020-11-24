@@ -31,7 +31,8 @@ const Login = () => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then((user) => {
-        dispatch(login(user));
+        // console.log("id", email);
+        dispatch(login(user.email));
         Toast.show("Login Successful");
         setLoading(false);
       })

@@ -11,19 +11,20 @@ import {
 import { validateName, validateEmail, validatePassword } from "../helper";
 import Toast from "react-native-simple-toast";
 import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
-import { auth } from "../firebase";
+import firebase, { auth } from "../firebase";
 import { useDispatch } from "react-redux";
 import { login } from "../Redux/Auth/auth.actions";
 
 const SignUp = () => {
-  // const [name, setName] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const db = firebase.firestore();
   const handleSignUp = () => {
-    // if (!validateName(name))
-    //   return Toast.show("Name must contain atleast 4 characters");
+    if (!validateName(name))
+      return Toast.show("Name must contain atleast 4 characters");
     if (!validateEmail(email)) return Toast.show("Invalid Email");
 
     if (!validatePassword(password))
@@ -35,9 +36,32 @@ const SignUp = () => {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((user) => {
-        dispatch(login(user));
-        Toast.show("Successfull");
-        setLoading(false);
+        dispatch(login(user.email));
+        db.collection("users")
+          .doc(email)
+          .set({
+            email,
+            name,
+            data: [
+              {
+                category: "Daily",
+                color: "#FEBCC8",
+                todo: [
+                  { name: "Eat", done: false, id: "1" },
+                  { name: "Code", done: false, id: "2" },
+                  { name: "Sleep", done: false, id: "3" },
+                ],
+              },
+            ],
+          })
+          .then(() => {
+            Toast.show("Successfull");
+            setLoading(false);
+          })
+          .catch((error) => {
+            Toast.show(error.message);
+            setLoading(false);
+          });
       })
       .catch((error) => {
         Toast.show(error.message);
@@ -52,15 +76,16 @@ const SignUp = () => {
       <View style={styles.body}>
         <View style={styles.form}>
           <Text style={styles.headerText}>SIGN-UP</Text>
-          {/* <View style={styles.inputHolder}>
+          <View style={styles.inputHolder}>
             <AntDesign name="user" size={24} color="black" />
             <TextInput
               placeholder="John Doe"
               style={styles.input}
               value={name}
               onChangeText={(text) => setName(text)}
+              autoCompleteType="off"
             />
-          </View> */}
+          </View>
           <View style={styles.inputHolder}>
             <MaterialCommunityIcons name="email" size={24} color="black" />
             <TextInput

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -7,14 +7,21 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Toast from "react-native-simple-toast";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../Redux/Auth/auth.actions";
-import { auth } from "../firebase";
+import firebase, { auth } from "../firebase";
 import CategoryItem from "./CategoryItem";
-import data from "../data";
 
 const Todo = () => {
-  const [todos, setTodos] = useState(data);
+  const db = firebase.firestore();
+  const email = useSelector((state) => state.AuthReducer.user);
+  const [todos, setTodos] = useState(null);
+  useEffect(() => {
+    db.collection("users")
+      .doc(email)
+      .get()
+      .then((doc) => setTodos(doc.data().data));
+  }, []);
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logout());
@@ -79,6 +86,7 @@ const styles = StyleSheet.create({
   },
   midContainer: {
     height: "70%",
+    // justifyContent: "center",
   },
   categoryContainer: {
     justifyContent: "center",
@@ -91,7 +99,9 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat_600SemiBold",
     fontWeight: "600",
   },
-  category: {},
+  category: {
+    alignItems: "center",
+  },
   endContainer: {
     height: "15%",
     justifyContent: "center",

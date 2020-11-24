@@ -13,7 +13,7 @@ export default function App() {
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        dispatch(login(user));
+        dispatch(login(user.email));
       }
     });
   }, []);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Main from "./Main";
 import { AppLoading } from "expo";
 import rootReducer from "./Redux/root-reducer";
@@ -20,11 +20,7 @@ export default function App() {
     Montserrat_800ExtraBold,
   });
   if (!fontsLoaded) {
-    return (
-      // <Provider store={store}>
-      <AppLoading />
-      // </Provider>
-    );
+    return <AppLoading />;
   }
   return (
     <Provider store={store}>
