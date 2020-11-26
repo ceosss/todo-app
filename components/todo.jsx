@@ -19,8 +19,15 @@ const Todo = () => {
   useEffect(() => {
     db.collection("users")
       .doc(email)
-      .get()
-      .then((doc) => setTodos(doc.data().data));
+      .collection("categories")
+      .onSnapshot((doc) => {
+        let array = [];
+        doc.docs.map((doc) => {
+          array.push(doc.data());
+        });
+        setTodos(array);
+        console.log(array);
+      });
   }, []);
   const dispatch = useDispatch();
   const handleLogout = () => {

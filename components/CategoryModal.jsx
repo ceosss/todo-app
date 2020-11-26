@@ -11,6 +11,7 @@ import { AntDesign } from "@expo/vector-icons";
 import TodoItem from "./todoItem";
 import ProgressCircle from "react-native-progress-circle";
 import { Entypo } from "@expo/vector-icons";
+import TodoInput from "./todoInput";
 
 const CategoryModal = ({ data, visible, toggleVisible }) => {
   const closeModal = () => toggleVisible(false);
@@ -44,13 +45,18 @@ const CategoryModal = ({ data, visible, toggleVisible }) => {
       <View style={styles.todos}>
         <FlatList
           data={data.todo}
-          renderItem={({ item }) => <TodoItem data={item} />}
+          renderItem={({ item }) => (
+            <TodoItem data={item} category={data.category} />
+          )}
           keyExtractor={(item, index) => "key" + index}
         />
       </View>
-      <TouchableOpacity style={styles.add}>
+      <View style={styles.addTodo}>
+        <TodoInput category={data.category} />
+      </View>
+      {/* <TouchableOpacity style={styles.add}>
         <Entypo name="plus" size={24} color="#333" />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </Modal>
   );
 };
@@ -62,9 +68,10 @@ const styles = StyleSheet.create({
     // alignItems: "center",
     padding: 15,
     marginBottom: 20,
+    height: "10%",
   },
   categoryName: {
-    fontSize: 32,
+    fontSize: 36,
     fontWeight: "bold",
     color: "white",
     letterSpacing: 2,
@@ -93,6 +100,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 8,
     right: 8,
+  },
+  todos: {
+    height: "72%",
+  },
+  addTodo: {
+    height: "18%",
   },
   add: {
     position: "absolute",

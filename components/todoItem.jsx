@@ -1,26 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+import Toast from "react-native-simple-toast";
+import { useSelector } from "react-redux";
+import firebase from "../firebase";
 
-const TodoItem = ({ data }) => {
-  const handlePress = () => {
-    console.log(data);
-  };
+const TodoItem = ({ data, category }) => {
+  const email = useSelector((state) => state.AuthReducer.user);
+  const db = firebase.firestore();
+  const todoRef = db
+    .collection("users")
+    .doc(email)
+    .collection("categories")
+    .doc(category.toLowerCase());
+  const handlePress = () => {};
   const handleDelete = () => {
-    console.log(data);
+    todoRef
+      .update({
+        todo: firebase.firestore.FieldValue.arrayRemove({
+          id: data.id,
+          name: data.name,
+          done: data.done,
+        }),
+      })
+      .then(() => Toast.show("Deleted"))
+      .catch((error) => Toast.show(error));
   };
   const doneText = () =>
+    data.done ? { textDecorationLine: "line-through", color: "#fff" } : "";
+  const doneTodo = () =>
     data.done
-      ? { textDecorationLine: "line-through", color: "lightgreen" }
-      : "";
-  const doneTodo = () => (data.done ? { backgroundColor: "#eee" } : "");
+      ? { backgroundColor: "lightgreen" }
+      : { backgroundColor: "#ff7979" };
   return (
-    <TouchableOpacity
+    <View
       style={[styles.todoItem, doneTodo()]}
-      onPress={handlePress}
+      // onPress={handlePress}
     >
       <View style={styles.done}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handlePress}>
           <MaterialIcons name="done" size={18} color="black" />
         </TouchableOpacity>
         <Text style={[styles.todoItemName, doneText()]}>{data.name}</Text>
@@ -28,7 +46,7 @@ const TodoItem = ({ data }) => {
       <TouchableOpacity style={styles.opacity} onPress={handleDelete}>
         <AntDesign name="delete" size={18} color="black" />
       </TouchableOpacity>
-    </TouchableOpacity>
+    </View>
   );
 };
 

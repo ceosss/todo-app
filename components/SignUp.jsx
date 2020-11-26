@@ -42,19 +42,21 @@ const SignUp = () => {
           .set({
             email,
             name,
-            data: [
-              {
-                category: "Daily",
+          })
+          .then(() => {
+            db.collection("users")
+              .doc(email)
+              .collection("categories")
+              .doc("daily")
+              .set({
+                category: "daily",
                 color: "#FEBCC8",
                 todo: [
                   { name: "Eat", done: false, id: "1" },
                   { name: "Code", done: false, id: "2" },
                   { name: "Sleep", done: false, id: "3" },
                 ],
-              },
-            ],
-          })
-          .then(() => {
+              });
             Toast.show("Successfull");
             setLoading(false);
           })
