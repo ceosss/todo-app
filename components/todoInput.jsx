@@ -55,7 +55,6 @@ const TodoInput = ({ category }) => {
           onPress={handleButtonPress}
           style={styles.buttonHolder}
         >
-          {/* <Text>Add Todo</Text> */}
           <Entypo name="plus" size={24} color="#333" style={styles.button} />
         </TouchableOpacity>
       </View>
@@ -71,7 +70,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 30,
   },
   input: {
     borderColor: "#ccc",

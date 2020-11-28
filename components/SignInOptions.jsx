@@ -1,10 +1,19 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ImageBackground,
+} from "react-native";
 import Logo from "../assets/Logo";
 
 const SignInOptions = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <ImageBackground
+      source={require("../assets/4086940.jpg")}
+      style={styles.container}
+    >
       <View style={styles.head}>
         <Text style={styles.headerText}>TODO HANDLER</Text>
       </View>
@@ -25,38 +34,51 @@ const SignInOptions = ({ navigation }) => {
           <Text style={styles.buttonText}>CREATE AN ACCOUNT</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
 export default SignInOptions;
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: "orange", height: "100%" },
-  head: { height: "30%", justifyContent: "center", alignItems: "center" },
+  container: {
+    // backgroundColor: "orange",
+    height: "100%",
+  },
+  head: {
+    height: "30%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   headerText: {
     fontSize: 32,
     fontFamily: "Montserrat_800ExtraBold",
     fontWeight: "800",
     color: "white",
   },
-  body: { height: "70%", justifyContent: "center", alignItems: "center" },
+  body: {
+    height: "70%",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    paddingBottom: 40,
+  },
   logo: {
     marginBottom: 30,
   },
   button: {
-    padding: 20,
+    padding: 15,
     marginVertical: 10,
     borderColor: "white",
     borderWidth: 1,
-    borderRadius: 50,
+    borderRadius: 10,
     width: "80%",
     alignItems: "center",
+    backgroundColor: "white",
   },
   buttonText: {
     fontSize: 20,
     fontFamily: "Montserrat_600SemiBold",
     fontWeight: "600",
-    color: "white",
+    color: "#2c3e50",
   },
 });

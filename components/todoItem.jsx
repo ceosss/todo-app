@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import Toast from "react-native-simple-toast";
 import { useSelector } from "react-redux";
 import firebase from "../firebase";
 
-const TodoItem = ({ data, category }) => {
+const TodoItem = ({ data, category, updateTodos }) => {
   const email = useSelector((state) => state.AuthReducer.user);
   const db = firebase.firestore();
   const todoRef = db
@@ -13,7 +13,7 @@ const TodoItem = ({ data, category }) => {
     .doc(email)
     .collection("categories")
     .doc(category.toLowerCase());
-  const handlePress = () => {};
+  const handlePress = () => updateTodos(data.id);
   const handleDelete = () => {
     todoRef
       .update({
@@ -44,7 +44,7 @@ const TodoItem = ({ data, category }) => {
         <Text style={[styles.todoItemName, doneText()]}>{data.name}</Text>
       </View>
       <TouchableOpacity style={styles.opacity} onPress={handleDelete}>
-        <AntDesign name="delete" size={18} color="black" />
+        <MaterialIcons name="delete" size={20} color="#2f3542" />
       </TouchableOpacity>
     </View>
   );

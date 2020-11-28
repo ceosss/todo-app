@@ -4,7 +4,7 @@
     "slug": "todo-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/todo.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -22,7 +22,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "softwareKeyboardLayoutMode": "pan"
+      "softwareKeyboardLayoutMode": "pan",
+      "package": "com.sss.todohandler"
     },
     "web": {
       "favicon": "./assets/favicon.png"

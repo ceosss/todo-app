@@ -7,6 +7,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   ActivityIndicator,
+  ImageBackground,
 } from "react-native";
 import { validateName, validateEmail, validatePassword } from "../helper";
 import Toast from "react-native-simple-toast";
@@ -71,7 +72,10 @@ const SignUp = () => {
       });
   };
   return (
-    <KeyboardAvoidingView style={styles.container}>
+    <ImageBackground
+      style={styles.container}
+      source={require("../assets/4086940.jpg")}
+    >
       <View style={styles.head}>
         <Text style={styles.headerText}>TODO HANDLER</Text>
       </View>
@@ -126,7 +130,7 @@ const SignUp = () => {
           </TouchableOpacity>
         )}
       </View>
-    </KeyboardAvoidingView>
+    </ImageBackground>
   );
 };
 

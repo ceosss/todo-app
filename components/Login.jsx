@@ -7,6 +7,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   ActivityIndicator,
+  ImageBackground,
 } from "react-native";
 import { useDispatch } from "react-redux";
 import { login } from "../Redux/Auth/auth.actions";
@@ -42,7 +43,10 @@ const Login = () => {
       });
   };
   return (
-    <KeyboardAvoidingView style={styles.container}>
+    <ImageBackground
+      style={styles.container}
+      source={require("../assets/4086940.jpg")}
+    >
       <View style={styles.head}>
         <Text style={styles.headerText}>TODO HANDLER</Text>
       </View>
@@ -87,7 +91,7 @@ const Login = () => {
           </TouchableOpacity>
         )}
       </View>
-    </KeyboardAvoidingView>
+    </ImageBackground>
   );
 };
 
@@ -126,11 +130,12 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: "75%",
     alignItems: "center",
+    backgroundColor: "white",
   },
   buttonText: {
     fontSize: 20,
     fontFamily: "Montserrat_600SemiBold",
     fontWeight: "600",
-    color: "white",
+    color: "#2c3e50",
   },
 });

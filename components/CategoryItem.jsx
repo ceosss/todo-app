@@ -15,12 +15,16 @@ const CategoryItem = ({ data }) => {
       <View style={styles.stats}>
         <ProgressCircle
           percent={(completed / data.todo.length) * 100}
-          radius={20}
-          borderWidth={5}
+          radius={22}
+          borderWidth={6}
           color="lightgreen"
           shadowColor="white"
           bgColor={data.color}
-        ></ProgressCircle>
+        >
+          <Text style={styles.percentage}>
+            {(completed / data.todo.length) * 100 || 0}%
+          </Text>
+        </ProgressCircle>
         <Text style={styles.statsText}>
           {completed} of {data.todo.length}
         </Text>
@@ -53,7 +57,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   categoryName: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
     fontFamily: "Montserrat_600SemiBold",
     fontWeight: "600",
@@ -71,6 +75,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   statsHeader: {
+    fontFamily: "Montserrat_600SemiBold",
+    fontWeight: "600",
+  },
+  percentage: {
+    fontSize: 10,
     fontFamily: "Montserrat_600SemiBold",
     fontWeight: "600",
   },
