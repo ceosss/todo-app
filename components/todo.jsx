@@ -14,6 +14,7 @@ import { Entypo } from "@expo/vector-icons";
 import firebase, { auth } from "../firebase";
 import CategoryItem from "./CategoryItem";
 import AddCategory from "./AddCategory";
+import AccountSetting from "./AccountSetting";
 
 const Todo = () => {
   const db = firebase.firestore();
@@ -73,9 +74,11 @@ const Todo = () => {
         </View>
       </View>
       <View style={styles.endContainer}>
-        <TouchableOpacity onPress={handleLogout} style={styles.button}>
+        <AccountSetting />
+
+        {/* <TouchableOpacity onPress={handleLogout} style={styles.button}>
           <Text style={styles.text}>LOG-OUT</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <Modal
         visible={showAddCat}
@@ -115,7 +118,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#333",
   },
   midContainer: {
-    height: "70%",
+    height: "75%",
   },
   categoryContainer: {
     justifyContent: "center",
@@ -132,9 +135,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   endContainer: {
-    height: "15%",
+    height: "10%",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#dcdde1",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   buttonHolder: {
     width: "100%",
