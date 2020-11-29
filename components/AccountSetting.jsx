@@ -38,7 +38,7 @@ export default function AccountSetting() {
       .catch((error) => Toast.show(error));
   };
   const update = () => {
-    if (name === prevName)
+    if (name.trim() === prevName.trim())
       return Toast.show("Please Change the name and Try Again!");
     if (!validateName(name))
       return Toast.show("Name must contain atleast 4 characters");

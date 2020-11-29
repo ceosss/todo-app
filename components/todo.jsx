@@ -15,6 +15,7 @@ import firebase, { auth } from "../firebase";
 import CategoryItem from "./CategoryItem";
 import AddCategory from "./AddCategory";
 import AccountSetting from "./AccountSetting";
+import * as Analytics from "expo-firebase-analytics";
 
 const Todo = () => {
   const db = firebase.firestore();
@@ -34,16 +35,10 @@ const Todo = () => {
         setTodos(array);
         console.log(array);
       });
+    // Analytics.setAnalyticsCollectionEnabled();
+    Analytics.logEvent("appOpened");
   }, []);
   const dispatch = useDispatch();
-
-  const handleLogout = () => {
-    dispatch(logout());
-    auth
-      .signOut()
-      .then(() => Toast.show("Logged-out"))
-      .catch((error) => Toast.show(error));
-  };
 
   return (
     <View style={styles.container}>
@@ -75,10 +70,6 @@ const Todo = () => {
       </View>
       <View style={styles.endContainer}>
         <AccountSetting />
-
-        {/* <TouchableOpacity onPress={handleLogout} style={styles.button}>
-          <Text style={styles.text}>LOG-OUT</Text>
-        </TouchableOpacity> */}
       </View>
       <Modal
         visible={showAddCat}
